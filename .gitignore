@@ -1,0 +1,89 @@
+# Dependencies
+node_modules/
+
+# Production build output
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# Local environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+
+# Private keys, certificates, and credentials
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+*.kubeconfig
+service-account*.json
+firebase-adminsdk*.json
+google-credentials*.json
+client_secret*.json
+credentials.*
+secrets.*
+.secrets/
+secrets/
+credentials/
+
+# Package manager auth/config that may contain tokens
+.npmrc
+.yarnrc
+.yarnrc.yml
+.pnpmrc
+!.npmrc.example
+!.yarnrc.example
+!.yarnrc.yml.example
+!.pnpmrc.example
+
+# Logs and diagnostic output
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Test and coverage output
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+blob-report/
+
+# Deployment and hosting local state
+.vercel/
+.netlify/
+.wrangler/
+.sst/
+.amplify/
+.firebase/
+
+# Editor, OS, and local workspace files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Tool caches
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
