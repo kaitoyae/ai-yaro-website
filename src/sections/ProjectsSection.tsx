@@ -3,7 +3,10 @@ import { RevealText } from '../components/RevealText';
 import { memberProjects } from '../data/memberProjects';
 
 export const ProjectsSection = () => (
-  <section id="projects" className="relative z-10 border-t border-white/10 bg-gradient-to-b from-black to-[#0a0a0a] px-4 py-20 md:px-10 md:py-32">
+  <section
+    id="projects"
+    className="relative z-10 border-t border-white/10 bg-gradient-to-b from-[#030303]/[0.88] via-[#020202]/[0.80] to-[#050505]/[0.84] px-4 py-20 md:from-[#030303]/[0.72] md:via-[#020202]/[0.64] md:to-[#050505]/[0.78] md:px-10 md:py-32"
+  >
     <div className="mx-auto max-w-6xl">
       <RevealText>
         <h2 className="mb-2 font-mono text-xs tracking-widest text-[#00ff9d]">PROJECT</h2>
@@ -12,15 +15,15 @@ export const ProjectsSection = () => (
         <p className="mb-4 text-3xl font-black md:text-5xl">コミュニティの挑戦</p>
       </RevealText>
       <RevealText delay={0.1}>
-        <p className="mb-10 max-w-2xl text-xs leading-relaxed text-gray-500 md:text-sm">
+        <p className="mb-10 max-w-2xl text-xs leading-relaxed text-gray-400 md:text-sm">
           メンバーが個別に取り組むプロジェクトをカードで紹介します。追加・更新はリポジトリの{' '}
-          <code className="rounded bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-gray-400">src/data/memberProjects.ts</code>{' '}
+          <code className="rounded bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-gray-300">src/data/memberProjects.ts</code>{' '}
           を編集し、Pull Request を送ってください。
         </p>
       </RevealText>
 
       {memberProjects.length === 0 ? (
-        <p className="text-sm text-gray-500">まだ登録がありません。`memberProjects` 配列にエントリを追加してください。</p>
+        <p className="text-sm text-gray-400">まだ登録がありません。`memberProjects` 配列にエントリを追加してください。</p>
       ) : (
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
           {memberProjects.map((project, index) => (

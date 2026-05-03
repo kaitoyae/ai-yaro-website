@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import { GradientDescentBackground } from './components/GradientDescentBackground';
 import { Header } from './components/Header';
 import { Loader } from './components/Loader';
-import { NeuralNetworkBackground } from './components/NeuralNetworkBackground';
 import { AboutSection } from './sections/AboutSection';
 import { ActivitiesSection } from './sections/ActivitiesSection';
 import { ContributeSection } from './sections/ContributeSection';
@@ -17,7 +17,7 @@ export default function App() {
   return (
     <>
       <AnimatePresence>{loading ? <Loader onComplete={() => setLoading(false)} /> : null}</AnimatePresence>
-      <NeuralNetworkBackground />
+      <GradientDescentBackground />
 
       <div
         aria-hidden={loading}

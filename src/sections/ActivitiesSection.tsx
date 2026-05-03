@@ -3,7 +3,10 @@ import { RevealText } from '../components/RevealText';
 import { siteConfig } from '../config/site';
 
 export const ActivitiesSection = () => (
-  <section id="activities" className="relative z-10 bg-gradient-to-b from-transparent to-[#111111]/80 px-4 py-20 md:px-10 md:py-32">
+  <section
+    id="activities"
+    className="relative z-10 bg-gradient-to-b from-transparent via-[#050505]/[0.55] to-[#050505]/[0.68] px-4 py-20 md:px-10 md:py-32"
+  >
     <div className="mx-auto max-w-6xl">
       <RevealText>
         <h2 className="mb-2 font-mono text-xs tracking-widest text-[#00ff9d]">CORE ACTIVITIES</h2>

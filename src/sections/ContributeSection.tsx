@@ -5,7 +5,7 @@ import { siteConfig } from '../config/site';
 const marqueeItems = Array.from({ length: 6 }, (_, index) => index);
 
 export const ContributeSection = () => (
-  <section className="relative z-10 border-t border-white/10 bg-black py-20 md:py-32">
+  <section className="relative z-10 border-t border-white/10 bg-[#030303]/[0.78] py-20 md:py-32">
     <div className="mb-16 w-full -rotate-1 overflow-hidden bg-[#00ff9d] py-2 text-black">
       <div className="marquee-track flex whitespace-nowrap">
         {[0, 1].map((group) => (
