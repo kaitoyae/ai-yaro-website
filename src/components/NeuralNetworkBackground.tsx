@@ -12,6 +12,8 @@ type PointerState = {
   x: number | null;
   y: number | null;
   radius: number;
+  strength: number;
+  isFading: boolean;
 };
 
 const PARTICLE_COLOR = '#00ff9d';
@@ -44,16 +46,18 @@ const updateParticle = (particle: Particle, width: number, height: number, point
   if (particle.x > width || particle.x < 0) particle.directionX = -particle.directionX;
   if (particle.y > height || particle.y < 0) particle.directionY = -particle.directionY;
 
-  if (pointer.x !== null && pointer.y !== null) {
+  if (pointer.x !== null && pointer.y !== null && pointer.strength > 0) {
     const dx = pointer.x - particle.x;
     const dy = pointer.y - particle.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
+    const pointerRadius = pointer.radius * pointer.strength;
+    const pushDistance = 2 * pointer.strength;
 
-    if (distance < pointer.radius + particle.size) {
-      if (pointer.x < particle.x && particle.x < width - particle.size * 10) particle.x += 2;
-      if (pointer.x > particle.x && particle.x > particle.size * 10) particle.x -= 2;
-      if (pointer.y < particle.y && particle.y < height - particle.size * 10) particle.y += 2;
-      if (pointer.y > particle.y && particle.y > particle.size * 10) particle.y -= 2;
+    if (distance < pointerRadius + particle.size) {
+      if (pointer.x < particle.x && particle.x < width - particle.size * 10) particle.x += pushDistance;
+      if (pointer.x > particle.x && particle.x > particle.size * 10) particle.x -= pushDistance;
+      if (pointer.y < particle.y && particle.y < height - particle.size * 10) particle.y += pushDistance;
+      if (pointer.y > particle.y && particle.y > particle.size * 10) particle.y -= pushDistance;
     }
   }
 
@@ -73,7 +77,7 @@ export const NeuralNetworkBackground = () => {
     let animationFrameId = 0;
     let particles: Particle[] = [];
     let connectionDistance = getNetworkSettings(window.innerWidth).connectionDistance;
-    const pointer: PointerState = { x: null, y: null, radius: 120 };
+    const pointer: PointerState = { x: null, y: null, radius: 120, strength: 0, isFading: false };
 
     const resizeCanvas = () => {
       const width = window.innerWidth;
@@ -94,11 +98,36 @@ export const NeuralNetworkBackground = () => {
     const handleMouseMove = (event: MouseEvent) => {
       pointer.x = event.clientX;
       pointer.y = event.clientY;
+      pointer.strength = 1;
+      pointer.isFading = false;
     };
 
-    const handleTouchMove = () => {
-      pointer.x = null;
-      pointer.y = null;
+    const setPointerFromTouch = (touch: Touch) => {
+      pointer.x = touch.clientX;
+      pointer.y = touch.clientY;
+      pointer.strength = 1;
+      pointer.isFading = false;
+    };
+
+    const handleTouchStart = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) setPointerFromTouch(touch);
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) setPointerFromTouch(touch);
+    };
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      const touch = event.touches[0];
+
+      if (touch) {
+        setPointerFromTouch(touch);
+        return;
+      }
+
+      pointer.isFading = true;
     };
 
     const animate = () => {
@@ -107,6 +136,17 @@ export const NeuralNetworkBackground = () => {
 
       animationFrameId = window.requestAnimationFrame(animate);
       context.clearRect(0, 0, width, height);
+
+      if (pointer.isFading) {
+        pointer.strength *= 0.94;
+
+        if (pointer.strength < 0.03) {
+          pointer.x = null;
+          pointer.y = null;
+          pointer.strength = 0;
+          pointer.isFading = false;
+        }
+      }
 
       for (const particle of particles) {
         updateParticle(particle, width, height, pointer);
@@ -135,7 +175,10 @@ export const NeuralNetworkBackground = () => {
     const passiveOptions: AddEventListenerOptions = { passive: true };
 
     window.addEventListener('mousemove', handleMouseMove, passiveOptions);
+    window.addEventListener('touchstart', handleTouchStart, passiveOptions);
     window.addEventListener('touchmove', handleTouchMove, passiveOptions);
+    window.addEventListener('touchend', handleTouchEnd, passiveOptions);
+    window.addEventListener('touchcancel', handleTouchEnd, passiveOptions);
     window.addEventListener('resize', resizeCanvas);
 
     resizeCanvas();
@@ -144,7 +187,10 @@ export const NeuralNetworkBackground = () => {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove, passiveOptions);
+      window.removeEventListener('touchstart', handleTouchStart, passiveOptions);
       window.removeEventListener('touchmove', handleTouchMove, passiveOptions);
+      window.removeEventListener('touchend', handleTouchEnd, passiveOptions);
+      window.removeEventListener('touchcancel', handleTouchEnd, passiveOptions);
       window.removeEventListener('resize', resizeCanvas);
     };
   }, []);
