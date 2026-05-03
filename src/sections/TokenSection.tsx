@@ -1,6 +1,9 @@
 import { IconArrowUpRight } from '../components/icons';
 import { RevealText } from '../components/RevealText';
 import { siteConfig } from '../config/site';
+import { safeExternalUrl } from '../utils/safeExternalUrl';
+
+const tokenUrl = safeExternalUrl(siteConfig.tokenUrl);
 
 export const TokenSection = () => (
   <section id="token" className="relative z-10 px-4 py-24 md:py-32">
@@ -29,14 +32,16 @@ export const TokenSection = () => (
         </p>
       </RevealText>
       <RevealText delay={0.3}>
-        <a
-          href={siteConfig.tokenUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-[#00ff9d] px-6 py-3 text-sm font-bold text-black transition-transform hover:bg-white active:scale-95 md:px-8 md:py-4 md:text-base"
-        >
-          VIEW ON PUMP.FUN <IconArrowUpRight className="h-4 w-4 md:h-5 md:w-5" />
-        </a>
+        {tokenUrl ? (
+          <a
+            href={tokenUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-[#00ff9d] px-6 py-3 text-sm font-bold text-black transition-transform hover:bg-white active:scale-95 md:px-8 md:py-4 md:text-base"
+          >
+            VIEW ON PUMP.FUN <IconArrowUpRight className="h-4 w-4 md:h-5 md:w-5" />
+          </a>
+        ) : null}
       </RevealText>
     </div>
   </section>

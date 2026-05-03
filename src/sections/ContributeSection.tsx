@@ -1,8 +1,10 @@
 import { IconGithub, IconZap } from '../components/icons';
 import { RevealText } from '../components/RevealText';
 import { siteConfig } from '../config/site';
+import { safeExternalUrl } from '../utils/safeExternalUrl';
 
 const marqueeItems = Array.from({ length: 6 }, (_, index) => index);
+const repositoryUrl = safeExternalUrl(siteConfig.repositoryUrl);
 
 export const ContributeSection = () => (
   <section className="relative z-10 border-t border-white/10 bg-[#030303]/[0.78] py-20 md:py-32">
@@ -27,14 +29,16 @@ export const ContributeSection = () => (
           <p className="mb-6 text-xs text-gray-400 md:text-sm">
             AI野郎のWebサイトはオープンソースです。メンバーによる自発的で積極的な更新を歓迎します。限界を突破するコードをPushしてください。
           </p>
-          <a
-            href={siteConfig.repositoryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2 text-xs font-bold text-black active:bg-gray-200"
-          >
-            <IconGithub className="h-3 w-3" /> GITHUB REPO
-          </a>
+          {repositoryUrl ? (
+            <a
+              href={repositoryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2 text-xs font-bold text-black active:bg-gray-200"
+            >
+              <IconGithub className="h-3 w-3" /> GITHUB REPO
+            </a>
+          ) : null}
         </div>
       </RevealText>
     </div>

@@ -1,3 +1,5 @@
+import type { HttpsUrl } from '../utils/safeExternalUrl';
+
 /**
  * メンバー各自のプロジェクト一覧。
  * この配列を編集して GitHub に Push / PR するとサイトに反映されます。
@@ -10,8 +12,8 @@ export type MemberProject = {
   description: string;
   /** 担当・更新者の表示名 */
   member: string;
-  /** 任意: リポジトリ・デモ・ドキュメントなど */
-  url?: string;
+  /** 任意: 公開してよい https:// のリポジトリ・デモ・ドキュメントなど */
+  url?: HttpsUrl;
   tags?: string[];
   /** 表示用の更新日 (YYYY-MM-DD) */
   updatedAt: ISODateString;

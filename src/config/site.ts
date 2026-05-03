@@ -1,3 +1,17 @@
+import type { HttpsUrl } from '../utils/safeExternalUrl';
+
+type SiteConfig = {
+  name: string;
+  repositoryUrl: HttpsUrl;
+  tokenUrl: HttpsUrl;
+  establishedYear: number;
+  activeMembers: number;
+  navItems: readonly {
+    href: `#${string}`;
+    label: string;
+  }[];
+};
+
 export const siteConfig = {
   name: 'AI野郎',
   repositoryUrl: 'https://github.com/kaitoyae/ai-yaro-website',
@@ -10,4 +24,4 @@ export const siteConfig = {
     { href: '#projects', label: 'Projects' },
     { href: '#token', label: 'Token' },
   ],
-} as const;
+} as const satisfies SiteConfig;
