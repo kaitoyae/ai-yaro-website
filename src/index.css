@@ -1,3 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-color: #030303;
+  --primary: #00ff9d;
+  --secondary: #7000ff;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: #ffffff;
+  overflow-x: clip;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overscroll-behavior-y: auto;
+}
+
+.font-mono {
+  font-family: 'Space Mono', monospace;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--primary);
+  clip-path: inset(20% 0 80% 0);
+  animation: glitch-anim-1 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--secondary);
+  clip-path: inset(80% 0 1% 0);
+  animation: glitch-anim-2 4s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(10% 0 80% 0);
+    transform: translate(-2px, 1px);
+  }
+  20% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(1px, -1px);
+  }
+  40% {
+    clip-path: inset(30% 0 50% 0);
+    transform: translate(-1px, 2px);
+  }
+  60% {
+    clip-path: inset(100% 0 1% 0);
+    transform: translate(2px, -2px);
+  }
+  80% {
+    clip-path: inset(5% 0 70% 0);
+    transform: translate(-2px, 1px);
+  }
+  100% {
+    clip-path: inset(40% 0 20% 0);
+    transform: translate(1px, -1px);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(2px, -1px);
+  }
+  20% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(-1px, 2px);
+  }
+  40% {
+    clip-path: inset(10% 0 80% 0);
+    transform: translate(2px, 1px);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(-2px, -1px);
+  }
+  80% {
+    clip-path: inset(50% 0 30% 0);
+    transform: translate(1px, 2px);
+  }
+  100% {
+    clip-path: inset(5% 0 90% 0);
+    transform: translate(-1px, -2px);
+  }
+}
+
+.glass-panel {
+  background: rgba(20, 20, 20, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.marquee-track {
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch-text::before,
+  .glitch-text::after,
+  .marquee-track {
+    animation: none;
+  }
+}
